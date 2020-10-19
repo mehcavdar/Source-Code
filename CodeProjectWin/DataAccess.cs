@@ -126,16 +126,37 @@ namespace CodeProjectWin
             {
 
                 HostApplication h = new HostApplication(tuple.Item2.IPAddresses[i].ToString(), 1, 65535);
-                h.Scan();
 
-                for (int k = 0; k < h.ClosedPorts.Count; k++)
+                for (int port = h.MinPort; port <= h.MaxPort; port++)
                 {
-                    data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), h.ClosedPorts[k].ToString(), false, true));
-                    Data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), h.ClosedPorts[k].ToString(), false, true));
-                    if (DatabaseUpdated != null)
-                        DatabaseUpdated(Data);
+                    if (h.IsPortOpen(port))
+                    {
+                        data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), port.ToString(), true, true));
+                        Data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), port.ToString(), true, true));
+                        if (DatabaseUpdated != null)
+                            DatabaseUpdated(Data);
+                    }
+                    else
+                    {
+                        data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), port.ToString(), false, true));
+                        Data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(),port.ToString(), false, true));
+                        if (DatabaseUpdated != null)
+                            DatabaseUpdated(Data);
+                    }
+
 
                 }
+
+
+
+                //for (int k = 0; k < h.ClosedPorts.Count; k++)
+                //{
+                //    data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), h.ClosedPorts[k].ToString(), false, true));
+                //    Data.Add(new HostValue(tuple.Item2.workerId.ToString(), tuple.Item2.IPAddresses[i].ToString(), h.ClosedPorts[k].ToString(), false, true));
+                //    if (DatabaseUpdated != null)
+                //        DatabaseUpdated(Data);
+
+                //}
 
                 //for (int k = 0; k < h.OpenPorts.Count; k++)
                 //{
