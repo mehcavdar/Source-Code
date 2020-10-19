@@ -26,7 +26,7 @@ namespace CodeProjectWin
         private readonly List<string> _names;
         public DataAccess()
         {
-            _names = new GenerateName().FullNames();
+           // _names = new GenerateName().FullNames();
         }
 
         public static ObservableCollection<HostValue> Data = new ObservableCollection<HostValue>();
@@ -125,7 +125,7 @@ namespace CodeProjectWin
             for (int i = 0; i < tuple.Item2.IPAddresses.Count; i++)
             {
 
-                HostApplication h = new HostApplication(tuple.Item2.IPAddresses[i].ToString(), 75, 76);
+                HostApplication h = new HostApplication(tuple.Item2.IPAddresses[i].ToString(), 1, 65535);
                 h.Scan();
 
                 for (int k = 0; k < h.ClosedPorts.Count; k++)

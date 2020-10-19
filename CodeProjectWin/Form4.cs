@@ -18,7 +18,7 @@ namespace CodeProjectWin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HostApplication h = new HostApplication("127.0.0.1", 75, 85);
+            HostApplication h = new HostApplication("127.0.0.1", 1, 65535);
             //h.Scan();
 
 
